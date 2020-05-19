@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import FormInput from 'components/FormInput';
 import CustomButton from 'components/CustomButton';
+import { auth, createUserProfileDocument } from 'firebase/utils';
+
 import './index.scss';
 
 const initForm = {
@@ -27,12 +29,12 @@ const SignUp = () => {
     }
 
     try {
-      // const { user } = await auth.createUserWithEmailAndPassword(
-      //   email,
-      //   password
-      // );
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
 
-      // await createUserProfileDocument(user, { displayName });
+      await createUserProfileDocument(user, { displayName });
 
       setForm(initForm);
     } catch (error) {
@@ -41,6 +43,7 @@ const SignUp = () => {
   };
 
   const { displayName, email, password, confirmPassword } = form;
+  
   return (
     <div className='sign-up'>
       <h2 className='title'>I do not have a account</h2>
