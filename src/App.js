@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import HomePage from 'pages/HomePage'
 import ShopPage from 'pages/Shop';
 import SignInAndSignUpPage from 'pages/SignInAndSignUp';
+import CheckoutPage from 'pages/CheckoutPage';
 import Header from 'components/Header';
 import { auth, createUserProfileDocument } from 'firebase/utils';
 import { setCurrentUser } from 'redux/user/actions';
@@ -38,6 +39,7 @@ const App = ({ currentUser, setCurrentUser }) => {
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route path='/shop' component={ShopPage} />
+        <Route exact path='/checkout' component={CheckoutPage} />
         <Route exact path='/signin' render={() => {
           return currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
         }} />
