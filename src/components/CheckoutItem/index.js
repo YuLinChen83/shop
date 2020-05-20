@@ -33,7 +33,7 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
 };
 
 const mapDispatchToProps = {
-  clearItemFromCart,
+  clearItem: clearItemFromCart,
   addItem,
   removeItem,
 };

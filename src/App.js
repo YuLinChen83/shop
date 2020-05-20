@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import HomePage from 'pages/HomePage'
 import ShopPage from 'pages/Shop';
 import SignInAndSignUpPage from 'pages/SignInAndSignUp';
-import CheckoutPage from 'pages/CheckoutPage';
+import CheckoutPage from 'pages/Checkout';
 import Header from 'components/Header';
 import { auth, createUserProfileDocument } from 'firebase/utils';
 import { setCurrentUser } from 'redux/user/actions';
