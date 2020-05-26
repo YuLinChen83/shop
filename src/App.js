@@ -7,13 +7,15 @@ import ShopPage from 'pages/Shop';
 import SignInAndSignUpPage from 'pages/SignInAndSignUp';
 import CheckoutPage from 'pages/Checkout';
 import Header from 'components/Header';
-import { auth, createUserProfileDocument } from 'firebase/utils';
+import { auth, createUserProfileDocument, addCollectionsAndDocuments } from 'firebase/utils';
 import { setCurrentUser } from 'redux/user/actions';
 import { selectCurrentUser } from 'redux/user/selectors';
+import { selectCollectionsForPreview } from 'redux/shop/selectors';
 import './App.css';
 
-const App = ({ currentUser, setCurrentUser }) => {
+const App = ({ currentUser, setCurrentUser, collectionsArray }) => {
   useEffect(() => {
+    // eslint-disable-next-line no-unused-vars
     let unsubscribeFromAuth;
     unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -27,11 +29,12 @@ const App = ({ currentUser, setCurrentUser }) => {
         });
       }
       setCurrentUser(userAuth);
+      addCollectionsAndDocuments('collections', collectionsArray.map(({ title, items }) => ({ title, items })));
     });
     return () => {
       unsubscribeFromAuth = null;
     }
-  }, [setCurrentUser])
+  }, [collectionsArray, setCurrentUser])
 
   return (
     <div>
@@ -49,7 +52,8 @@ const App = ({ currentUser, setCurrentUser }) => {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  collectionsArray: selectCollectionsForPreview,
 });
 
 const mapDispatchToProps = {
