@@ -7,10 +7,9 @@ import ShopPage from 'pages/Shop';
 import SignInAndSignUpPage from 'pages/SignInAndSignUp';
 import CheckoutPage from 'pages/Checkout';
 import Header from 'components/Header';
-import { auth, createUserProfileDocument, addCollectionsAndDocuments } from 'firebase/utils';
+import { auth, createUserProfileDocument } from 'firebase/utils';
 import { setCurrentUser } from 'redux/user/actions';
 import { selectCurrentUser } from 'redux/user/selectors';
-import { selectCollectionsForPreview } from 'redux/shop/selectors';
 import './App.css';
 
 const App = ({ currentUser, setCurrentUser, collectionsArray }) => {
@@ -29,7 +28,6 @@ const App = ({ currentUser, setCurrentUser, collectionsArray }) => {
         });
       }
       setCurrentUser(userAuth);
-      addCollectionsAndDocuments('collections', collectionsArray.map(({ title, items }) => ({ title, items })));
     });
     return () => {
       unsubscribeFromAuth = null;
@@ -53,7 +51,6 @@ const App = ({ currentUser, setCurrentUser, collectionsArray }) => {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  collectionsArray: selectCollectionsForPreview,
 });
 
 const mapDispatchToProps = {
